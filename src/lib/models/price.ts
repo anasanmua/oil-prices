@@ -3,6 +3,6 @@ export interface Price {
     product: string
     price: number
     unit: string
-    marketDate: Date
+    marketDate: string
     scrapedAt: Date
 }
