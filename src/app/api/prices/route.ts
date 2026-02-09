@@ -17,7 +17,7 @@ export async function POST(request: Request) {
         product: body.product,
         price: body.price,
         unit: body.unit,
-        marketDate: new Date(body.marketDate),
+        marketDate: body.marketDate,
         scrapedAt: new Date()
     }
 
