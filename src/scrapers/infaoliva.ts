@@ -9,15 +9,15 @@ const URL = "https://www.infaoliva.com"
 async function scrapeInfaoliva() {
     const marketDate: string = new Date().toISOString().split("T")[0]
 
-    // 1. Descargar HTML
+    // 1. Scrappe infaoliva and download HTML
     const response = await axios.get(URL)
     const html = response.data
 
-    // 2. Cargar HTML en cheerio
+    // 2. Normalised HTML en cheerio
     const $ = cheerio.load(html)
     const results: any[] = []
 
-    // 3. Recorrer filas de la tabla
+    // 3. Iterate over the table
     $("table.table-striped tbody tr").each((_, row) => {
         const tds = $(row).find("td")
 
@@ -38,7 +38,7 @@ async function scrapeInfaoliva() {
             product,
             price,
             unit: "Kg",
-            marketDate,   // luego afinaremos
+            marketDate,
             scrapedAt: new Date()
         }
 
@@ -48,19 +48,18 @@ async function scrapeInfaoliva() {
     return results
 }
 
-async function run() {
-    const prices = await scrapeInfaoliva()
+export async function runInfaolivaScraper(){
+  const prices = await scrapeInfaoliva()
 
-    for (const price of prices) {
-        const result = await insertPrice(price)
+  let insertedCount = 0
 
-        if(result.inserted) {
-            console.log("Inserted:", price.product)
-        } else {
-            console.log("Skipped (duplicate):", price.product)
-        }
+  for (const price of prices) {
+    const result = await insertPrice(price)
+
+    if (result.inserted) {
+      insertedCount++
     }
-    console.log("Done. Total processed:", prices.length)
-}
+  }
 
-run()
+  return insertedCount
+}

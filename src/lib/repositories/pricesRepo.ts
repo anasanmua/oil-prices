@@ -1,27 +1,25 @@
-import { getDb } from "../mongo"
-import { Price } from "../models/price"
+import { getDb } from "../mongo";
+import { Price } from "../models/price";
 
-const COLLECTION = "prices"
+const COLLECTION = "prices";
 
 export async function insertPrice(price: Price) {
-    const db = await getDb()
+  const db = await getDb();
 
-    const exists = await db.collection(COLLECTION).findOne({
-        source: price.source,
-        product: price.product,
-        marketDate: price.marketDate
-    })
-
-    if (exists) {
-        return { inserted: false }
-    }
-
+  try {
     await db.collection(COLLECTION).insertOne(price)
     return { inserted: true }
+  } catch (error: any) {
+    if (error.code === 11000) {
+      // Duplicate key error, price already exists
+      return { inserted: false }
+    }
+    throw error
+  }
 }
 
 export async function getAllPrices() {
-    const db = await getDb()
-    const prices = await db.collection(COLLECTION).find().toArray()
-    return prices
+  const db = await getDb();
+  const prices = await db.collection(COLLECTION).find().toArray();
+  return prices;
 }
