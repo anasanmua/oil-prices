@@ -7,7 +7,7 @@ let db: Db | null = null
 
 export async function getDb(): Promise<Db> {
     if (!uri) {
-        throw new Error("MONGODB_URI no definida en .env.local")
+        throw new Error("MONGODB_URI no definida en .env")
     }
 
     if (db) return db

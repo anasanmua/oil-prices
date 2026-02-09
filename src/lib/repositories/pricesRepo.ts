@@ -5,7 +5,19 @@ const COLLECTION = "prices"
 
 export async function insertPrice(price: Price) {
     const db = await getDb()
+
+    const exists = await db.collection(COLLECTION).findOne({
+        source: price.source,
+        product: price.product,
+        marketDate: price.marketDate
+    })
+
+    if (exists) {
+        return { inserted: false }
+    }
+
     await db.collection(COLLECTION).insertOne(price)
+    return { inserted: true }
 }
 
 export async function getAllPrices() {
