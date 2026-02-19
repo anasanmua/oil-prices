@@ -12,6 +12,7 @@ import {
 
 import { Line } from "react-chartjs-2";
 import { Price } from "@/lib/models/price";
+import { COLORS } from "../../../colors";
 
 // registrar componentes necesarios
 ChartJS.register(
@@ -28,22 +29,55 @@ interface PriceChartInterface {
 }
 
 export default function PriceChart({ prices }: PriceChartInterface) {
-  const aovePrices = prices.filter(el => el.product === "AOVE - Diciembre 25/26")
-  const aoveDates = aovePrices.map((price) => price.marketDate);
+  const aoveNovPrices = prices
+    .filter((el) => el.product === "AOVE - Noviembre 25/26")
+    .map((price) => price.price);
+  const aoveDecPrices = prices
+    .filter((el) => el.product === "AOVE - Diciembre 25/26")
+    .map((price) => price.price);
+  const aovPrices = prices
+    .filter((el) => el.product === "Aceite de oliva virgen")
+    .map((price) => price.price);
+  const aolPrices = prices
+    .filter((el) => el.product === "Aceite de oliva lampante")
+    .map((price) => price.price);
+  const aoveDates = prices
+    .filter((el) => el.product === "AOVE - Noviembre 25/26")
+    .map((el) => el.marketDate);
 
-  const aovePricesArray = aovePrices.map((price) => price.price);
   const data = {
     labels: aoveDates,
     datasets: [
       {
-        label: "AOVE Price",
-        data: aovePricesArray,
+        label: "AOVE - Noviembre 25/26",
+        data: aoveNovPrices,
+        borderColor: COLORS.pastelRed,
+        backgroundColor: COLORS.pastelRed,
+      },
+      {
+        label: "AOVE - Diciembre 25/26",
+        data: aoveDecPrices,
+
+        borderColor: COLORS.pastelBlue,
+        backgroundColor: COLORS.pastelBlue,
+      },
+      {
+        label: "Aceite de oliva virgen",
+        data: aovPrices,
+        borderColor: COLORS.pastelTeal,
+        backgroundColor: COLORS.pastelTeal,
+      },
+      {
+        label: "Aceite de oliva lampante",
+        data: aolPrices,
+        borderColor: COLORS.pastelOrange,
+        backgroundColor: COLORS.pastelOrange,
       },
     ],
   };
 
   return (
-    <div className="w-[600px]">
+    <div className="w-1/2">
       <Line data={data} />
     </div>
   );
