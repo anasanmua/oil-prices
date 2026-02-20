@@ -52,12 +52,20 @@ export default function Home() {
             Deploy Now
           </a>
           <a
-            className={styles.secondary}
+            className={styles.primary}
             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
             target="_blank"
             rel="noopener noreferrer"
           >
             Documentation
+          </a>
+          <a
+            className={styles.primary}
+            href="/prices"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Olive oil prices
           </a>
         </div>
       </main>
