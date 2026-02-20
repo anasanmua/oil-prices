@@ -2,7 +2,6 @@ import "dotenv/config"
 import axios from "axios"
 import * as cheerio from "cheerio"
 import {insertPrice} from "@/lib/repositories/pricesRepo";
-import { Price } from "@/lib/models/price"
 import { PriceDB } from "@/lib/models/priceDb";
 
 const URL = "https://www.infaoliva.com"
