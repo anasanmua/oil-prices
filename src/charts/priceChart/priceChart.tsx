@@ -77,8 +77,14 @@ export default function PriceChart({ prices }: PriceChartInterface) {
   };
 
   return (
-    <div className="w-1/2">
-      <Line data={data} />
+    <div className="w-full h-[300px]">
+      <Line
+        data={data}
+        options={{
+          responsive: true,
+          maintainAspectRatio: false,
+        }}
+      />
     </div>
   );
 }

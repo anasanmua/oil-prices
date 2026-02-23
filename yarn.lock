@@ -2934,7 +2934,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/postcss@npm:^4.1.18":
+"@tailwindcss/postcss@npm:4.1.18":
   version: 4.1.18
   resolution: "@tailwindcss/postcss@npm:4.1.18"
   dependencies:
@@ -2967,7 +2967,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/add@npm:^2":
+"@types/add@npm:2":
   version: 2.0.3
   resolution: "@types/add@npm:2.0.3"
   checksum: 10c0/d18841b43d3799f69db0bdae380d19d05f43b716315c5bfd4d6c1b3467bada2644eab8c04bb5afdb94bba87604da06d466f22fe30df6bcf0518c373593bb474a
@@ -3357,7 +3357,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"add@npm:^2.0.6":
+"add@npm:2.0.6":
   version: 2.0.6
   resolution: "add@npm:2.0.6"
   checksum: 10c0/6b21d5f2e58cf5e15d56cc6f9ebce04f04f4c33ae25f09d600ddacf8df00036ba521f17feb1b3f81307b7c6d2ef0bed8b511a0f86f062eb90c2f909b48b588ae
@@ -3862,7 +3862,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chart.js@npm:^4.5.1":
+"chart.js@npm:4.5.1":
   version: 4.5.1
   resolution: "chart.js@npm:4.5.1"
   dependencies:
@@ -3911,7 +3911,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"class-variance-authority@npm:^0.7.1":
+"class-variance-authority@npm:0.7.1":
   version: 0.7.1
   resolution: "class-variance-authority@npm:0.7.1"
   dependencies:
@@ -3961,7 +3961,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^2.1.1":
+"clsx@npm:2.1.1, clsx@npm:^2.1.1":
   version: 2.1.1
   resolution: "clsx@npm:2.1.1"
   checksum: 10c0/c4c8eb865f8c82baab07e71bfa8897c73454881c4f99d6bc81585aecd7c441746c1399d08363dc096c550cceaf97bd4ce1e8854e1771e9998d9f94c4fe075839
@@ -6675,7 +6675,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:^0.572.0":
+"lucide-react@npm:0.572.0":
   version: 0.572.0
   resolution: "lucide-react@npm:0.572.0"
   peerDependencies:
@@ -7289,37 +7289,37 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "oil-prices@workspace:."
   dependencies:
-    "@tailwindcss/postcss": "npm:^4.1.18"
-    "@types/add": "npm:^2"
+    "@tailwindcss/postcss": "npm:4.1.18"
+    "@types/add": "npm:2"
     "@types/node": "npm:25.1.0"
     "@types/react": "npm:19"
     "@types/react-dom": "npm:19"
-    add: "npm:^2.0.6"
+    add: "npm:2.0.6"
     axios: "npm:1.13.4"
     babel-plugin-react-compiler: "npm:1.0.0"
-    chart.js: "npm:^4.5.1"
+    chart.js: "npm:4.5.1"
     cheerio: "npm:1.2.0"
-    class-variance-authority: "npm:^0.7.1"
-    clsx: "npm:^2.1.1"
+    class-variance-authority: "npm:0.7.1"
+    clsx: "npm:2.1.1"
     dotenv: "npm:17.2.3"
     eslint: "npm:9"
     eslint-config-next: "npm:16.1.5"
     eslint-config-prettier: "npm:10.1.8"
-    lucide-react: "npm:^0.572.0"
+    lucide-react: "npm:0.572.0"
     mongodb: "npm:7.0.0"
     next: "npm:16.1.5"
-    postcss: "npm:^8.5.6"
+    postcss: "npm:8.5.6"
     prettier: "npm:3.8.1"
-    radix-ui: "npm:^1.4.3"
+    radix-ui: "npm:1.4.3"
     react: "npm:19.2.3"
-    react-chartjs-2: "npm:^5.3.1"
+    react-chartjs-2: "npm:5.3.1"
     react-dom: "npm:19.2.3"
-    shadcn: "npm:^3.8.5"
-    table: "npm:^6.9.0"
-    tailwind-merge: "npm:^3.4.1"
-    tailwindcss: "npm:^4.1.18"
+    shadcn: "npm:3.8.5"
+    table: "npm:6.9.0"
+    tailwind-merge: "npm:3.4.1"
+    tailwindcss: "npm:4.1.18"
     tsx: "npm:4.21.0"
-    tw-animate-css: "npm:^1.4.0"
+    tw-animate-css: "npm:1.4.0"
     typescript: "npm:5"
   languageName: unknown
   linkType: soft
@@ -7633,7 +7633,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.41, postcss@npm:^8.5.6":
+"postcss@npm:8.5.6, postcss@npm:^8.4.41, postcss@npm:^8.5.6":
   version: 8.5.6
   resolution: "postcss@npm:8.5.6"
   dependencies:
@@ -7754,7 +7754,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"radix-ui@npm:^1.4.3":
+"radix-ui@npm:1.4.3":
   version: 1.4.3
   resolution: "radix-ui@npm:1.4.3"
   dependencies:
@@ -7846,7 +7846,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-chartjs-2@npm:^5.3.1":
+"react-chartjs-2@npm:5.3.1":
   version: 5.3.1
   resolution: "react-chartjs-2@npm:5.3.1"
   peerDependencies:
@@ -8256,7 +8256,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shadcn@npm:^3.8.5":
+"shadcn@npm:3.8.5":
   version: 3.8.5
   resolution: "shadcn@npm:3.8.5"
   dependencies:
@@ -8770,7 +8770,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"table@npm:^6.9.0":
+"table@npm:6.9.0":
   version: 6.9.0
   resolution: "table@npm:6.9.0"
   dependencies:
@@ -8790,14 +8790,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwind-merge@npm:^3.0.1, tailwind-merge@npm:^3.4.1":
+"tailwind-merge@npm:3.4.1, tailwind-merge@npm:^3.0.1":
   version: 3.4.1
   resolution: "tailwind-merge@npm:3.4.1"
   checksum: 10c0/0b601ac81673871eb5056dc2e300140d0d7b9998ce5bff2223514126ae1c4275a6537ddc9ae1bc49367b7d1b2d20d609916e5e072a80405947a78b438f06c282
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:4.1.18, tailwindcss@npm:^4.1.18":
+"tailwindcss@npm:4.1.18":
   version: 4.1.18
   resolution: "tailwindcss@npm:4.1.18"
   checksum: 10c0/c79263cea0b2c577859b02f28284caa4eb3844e4d0f563686726ca97817c045c5c395a55bc776daaa351ba9e4aefa9a75bfbb43c22d86f3c573eecc2b87d6bf1
@@ -8965,7 +8965,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tw-animate-css@npm:^1.4.0":
+"tw-animate-css@npm:1.4.0":
   version: 1.4.0
   resolution: "tw-animate-css@npm:1.4.0"
   checksum: 10c0/6cfbc19ccc73883ec80ef1f9147f43e736cb01ee99c8172968b37eb81b720523d30e38b1a96aef92db3c586d864204db5510b51744ddacbbf0ad8e3c7fb56ec7
