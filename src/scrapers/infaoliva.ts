@@ -1,17 +1,27 @@
 import "dotenv/config"
 import axios from "axios"
 import * as cheerio from "cheerio"
-import {insertPrice} from "@/lib/repositories/pricesRepo";
+import {insertPrice, getLastMarketDate} from "@/lib/repositories/pricesRepo";
 import { PriceDB } from "@/lib/models/priceDb";
 
 const URL = "https://www.infaoliva.com"
 
-async function scrapeInfaoliva() {
-    const marketDate: string = new Date().toISOString().split("T")[0]
+function extractMarketDate(html: string): string | null {
+    // Busca fechas tipo DD/MM/YYYY en el HTML y las normaliza a YYYY-MM-DD
+    const euMatch = html.match(/(\d{2})[\/](\d{2})[\/](\d{4})/)
+    if (euMatch) {
+        const [_, dd, mm, yyyy] = euMatch
+        return `${yyyy}-${mm}-${dd}`
+    }
 
-    // 1. Scrappe infaoliva and download HTML
+    return null
+}
+
+async function scrapeInfaoliva() {
     const response = await axios.get(URL)
     const html = response.data
+
+    const marketDate = extractMarketDate(html) ?? new Date().toISOString().split("T")[0]
 
     // 2. Normalised HTML en cheerio
     const $ = cheerio.load(html)
@@ -49,6 +59,17 @@ async function scrapeInfaoliva() {
 
 export async function runInfaolivaScraper(){
   const prices = await scrapeInfaoliva()
+
+  if (!prices.length) return 0
+
+  // La fecha de mercado viene ya parseada en cada price
+  const marketDate = prices[0].marketDate
+  const lastMarketDate = await getLastMarketDate()
+
+  // Si la fecha es la misma que la última guardada, no insertamos de nuevo
+  if (lastMarketDate === marketDate) {
+    return 0
+  }
 
   let insertedCount = 0
 

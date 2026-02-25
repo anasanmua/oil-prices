@@ -38,3 +38,15 @@ export async function getLastFourPrices():Promise<Price[]> {
         .toArray();
   return prices.map(serializePrice);
 }
+
+export async function getLastMarketDate(): Promise<string | null> {
+  const db = await getDb();
+  const doc = await db
+    .collection<PriceDB>(COLLECTION)
+    .find()
+    .sort({ marketDate: -1 })
+    .limit(1)
+    .next();
+
+  return doc ? doc.marketDate : null;
+}
