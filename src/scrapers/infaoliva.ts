@@ -22,7 +22,6 @@ async function scrapeInfaoliva() {
         const tds = $(row).find("td")
 
         const product = tds.eq(0).text().trim()
-        const variety = tds.eq(1).text().trim()
         const priceRaw = tds.eq(2).text().trim()
 
         // 4. Normalizar precio: "4.150 €" -> 4.15

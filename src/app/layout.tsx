@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Oil Prices",
   description: "Seguimiento de precios del aceite",
   manifest: "/manifest.json",

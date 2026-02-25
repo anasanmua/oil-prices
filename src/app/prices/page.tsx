@@ -1,3 +1,5 @@
+export const revalidate = 43200;
+
 import {
   Table,
   TableBody,

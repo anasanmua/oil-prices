@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Oil Prices",
     id: "/",
     short_name: "OilPrices",
-    description: "Seguimiento de precios del aceite de oliva",
+    description: "Follow the oil prices in Spain",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",
@@ -17,7 +17,7 @@ export default function manifest(): MetadataRoute.Manifest {
         type: "image/png",
       },
       {
-        src: "/play_store_512.png",
+        src: "/buho_512.png",
         sizes: "512x512",
         type: "image/png",
       },
