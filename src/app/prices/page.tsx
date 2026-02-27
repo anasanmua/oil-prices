@@ -14,10 +14,11 @@ import { getAllPrices, getLastFourPrices } from "@/lib/repositories/pricesRepo";
 export default async function PricesPage() {
   const prices = await getAllPrices();
   const lastFourPrices = await getLastFourPrices();
-  const date = new Date();
+  const date = lastFourPrices[0].marketDate.split("-").reverse().join("-");
 
   return (
     <div className="p-10">
+      <div>test </div>
       <div>{date.toString()}</div>
       <Table className="w-[50px]">
         <TableHeader>
