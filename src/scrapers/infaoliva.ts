@@ -1,58 +1,73 @@
 import "dotenv/config"
-import axios from "axios"
-import * as cheerio from "cheerio"
 import {insertPrice, getLastMarketDate} from "@/lib/repositories/pricesRepo";
-import { PriceDB } from "@/lib/models/priceDb";
+import { CreatePrice } from "@/lib/models/price";
 
-const URL = "https://www.infaoliva.com"
+const API_URL = "https://www.infaoliva.com/funciones/ajax.php"
 
-function extractMarketDate(html: string): string | null {
-    // Busca fechas tipo DD/MM/YYYY en el HTML y las normaliza a YYYY-MM-DD
-    const euMatch = html.match(/(\d{2})[\/](\d{2})[\/](\d{4})/)
-    if (euMatch) {
-        const [_, dd, mm, yyyy] = euMatch
-        return `${yyyy}-${mm}-${dd}`
-    }
-
-    return null
+interface InfaolivaDataPoint {
+    x: string  // fecha YYYY-MM-DD
+    y: string  // precio como string
 }
 
-async function scrapeInfaoliva() {
-    const response = await axios.get(URL)
-    const html = response.data
+interface InfaolivaSeries {
+    label: string
+    data: InfaolivaDataPoint[]
+}
 
-    const marketDate = extractMarketDate(html) ?? new Date().toISOString().split("T")[0]
+function buildDateRange(): { startDate: string; endDate: string } {
+    const today = new Date()
+    const oneWeekAgo = new Date(today)
+    oneWeekAgo.setDate(today.getDate() - 7)
 
-    // 2. Normalised HTML en cheerio
-    const $ = cheerio.load(html)
-    const results: any[] = []
+    const format = (d: Date) =>
+        `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`
 
-    // 3. Iterate over the table
-    $("table.table-striped tbody tr").each((_, row) => {
-        const tds = $(row).find("td")
+    return { startDate: format(oneWeekAgo), endDate: format(today) }
+}
 
-        const product = tds.eq(0).text().trim()
-        const priceRaw = tds.eq(2).text().trim()
+async function scrapeInfaoliva(): Promise<CreatePrice[]> {
+    const { startDate, endDate } = buildDateRange()
 
-        // 4. Normalizar precio: "4.150 €" -> 4.15
-        const priceClean = priceRaw
-            .replace("€", "")
-            .replace(",", ".")
-            .trim()
-
-        const price = parseFloat(priceClean)
-
-        const priceObj: PriceDB = {
-            source: "infaoliva",
-            product,
-            price,
-            unit: "Kg",
-            marketDate,
-            scrapedAt: new Date()
-        }
-
-        results.push(priceObj)
+    const body = new URLSearchParams({
+        accion: "PrecioAceite1",
+        years: "1",
+        fecha_ini: startDate,
+        fecha_fin: endDate,
     })
+
+    const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "X-Requested-With": "XMLHttpRequest",
+            "Origin": "https://www.infaoliva.com",
+            "Referer": "https://www.infaoliva.com/",
+        },
+        body: body.toString(),
+    })
+
+    const series: InfaolivaSeries[] = await response.json()
+
+    const results: CreatePrice[] = []
+
+    for (const serie of series) {
+        if (!serie.data.length) continue
+
+        // Ignoramos la serie genérica "AOVE" (sin temporada)
+        if (serie.label === "AOVE") continue
+
+        // Cogemos el último dato de cada serie (el más reciente)
+        const lastPoint = serie.data[serie.data.length - 1]
+
+        results.push({
+            source: "infaoliva",
+            product: serie.label,
+            price: parseFloat(lastPoint.y),
+            unit: "Kg",
+            marketDate: lastPoint.x,
+            scrapedAt: new Date().toISOString(),
+        })
+    }
 
     return results
 }
