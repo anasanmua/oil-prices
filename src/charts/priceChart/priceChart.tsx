@@ -51,27 +51,26 @@ export default function PriceChart({ prices }: PriceChartInterface) {
       {
         label: "AOVE - Noviembre 25/26",
         data: aoveNovPrices,
-        borderColor: COLORS.pastelRed,
-        backgroundColor: COLORS.pastelRed,
+        borderColor: COLORS.chartRed,
+        backgroundColor: COLORS.chartRed,
       },
       {
         label: "AOVE - Diciembre 25/26",
         data: aoveDecPrices,
-
-        borderColor: COLORS.pastelBlue,
-        backgroundColor: COLORS.pastelBlue,
+        borderColor: COLORS.chartBlue,
+        backgroundColor: COLORS.chartBlue,
       },
       {
         label: "Aceite de oliva virgen",
         data: aovPrices,
-        borderColor: COLORS.pastelTeal,
-        backgroundColor: COLORS.pastelTeal,
+        borderColor: COLORS.chartTeal,
+        backgroundColor: COLORS.chartTeal,
       },
       {
         label: "Aceite de oliva lampante",
         data: aolPrices,
-        borderColor: COLORS.pastelOrange,
-        backgroundColor: COLORS.pastelOrange,
+        borderColor: COLORS.chartOrange,
+        backgroundColor: COLORS.chartOrange,
       },
     ],
   };
@@ -83,6 +82,14 @@ export default function PriceChart({ prices }: PriceChartInterface) {
         options={{
           responsive: true,
           maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: {
+                usePointStyle: true,
+                pointStyle: "rect",
+              },
+            },
+          },
         }}
       />
     </div>
