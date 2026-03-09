@@ -13,8 +13,13 @@ import {
 import { Line } from "react-chartjs-2";
 import { Price } from "@/lib/models/price";
 import { COLORS } from "../../../colors";
+import {
+  isAoveDecember,
+  isAoveNovember,
+  isLampante,
+  isVirgen,
+} from "@/lib/helpers/prices";
 
-// registrar componentes necesarios
 ChartJS.register(
   LineElement,
   CategoryScale,
@@ -29,46 +34,48 @@ interface PriceChartInterface {
 }
 
 export default function PriceChart({ prices }: PriceChartInterface) {
-  const aoveNovPrices = prices
-    .filter((el) => el.product === "AOVE - Noviembre 25/26")
-    .map((price) => price.price);
-  const aoveDecPrices = prices
-    .filter((el) => el.product === "AOVE - Diciembre 25/26")
-    .map((price) => price.price);
-  const aovPrices = prices
-    .filter((el) => el.product === "Aceite de oliva virgen")
-    .map((price) => price.price);
-  const aolPrices = prices
-    .filter((el) => el.product === "Aceite de oliva lampante")
-    .map((price) => price.price);
-  const aoveDates = prices
-    .filter((el) => el.product === "AOVE - Noviembre 25/26")
-    .map((el) => el.marketDate);
+  const getProductData = (filterFn: (product: string) => boolean) => {
+    const filtered = prices.filter((el) => filterFn(el.product));
+    return {
+      prices: filtered.map((price) => price.price),
+      dates: filtered.map((el) => el.marketDate),
+    };
+  };
+
+  const aoveNovData = getProductData(isAoveNovember);
+  const aoveDecData = getProductData(isAoveDecember);
+  const virgenData = getProductData(isVirgen);
+  const lampanteData = getProductData(isLampante);
+
+  const dates = aoveNovData.dates.length > 0 ? aoveNovData.dates :
+    aoveDecData.dates.length > 0 ? aoveDecData.dates :
+    virgenData.dates.length > 0 ? virgenData.dates :
+    lampanteData.dates;
 
   const data = {
-    labels: aoveDates,
+    labels: dates,
     datasets: [
       {
         label: "AOVE - Noviembre 25/26",
-        data: aoveNovPrices,
+        data: aoveNovData.prices,
         borderColor: COLORS.chartRed,
         backgroundColor: COLORS.chartRed,
       },
       {
         label: "AOVE - Diciembre 25/26",
-        data: aoveDecPrices,
+        data: aoveDecData.prices,
         borderColor: COLORS.chartBlue,
         backgroundColor: COLORS.chartBlue,
       },
       {
         label: "Aceite de oliva virgen",
-        data: aovPrices,
+        data: virgenData.prices,
         borderColor: COLORS.chartTeal,
         backgroundColor: COLORS.chartTeal,
       },
       {
         label: "Aceite de oliva lampante",
-        data: aolPrices,
+        data: lampanteData.prices,
         borderColor: COLORS.chartOrange,
         backgroundColor: COLORS.chartOrange,
       },
