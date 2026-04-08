@@ -47,10 +47,14 @@ export default function PriceChart({ prices }: PriceChartInterface) {
   const virgenData = getProductData(isVirgen);
   const lampanteData = getProductData(isLampante);
 
-  const dates = aoveNovData.dates.length > 0 ? aoveNovData.dates :
-    aoveDecData.dates.length > 0 ? aoveDecData.dates :
-    virgenData.dates.length > 0 ? virgenData.dates :
-    lampanteData.dates;
+  const dates =
+    aoveNovData.dates.length > 0
+      ? aoveNovData.dates
+      : aoveDecData.dates.length > 0
+        ? aoveDecData.dates
+        : virgenData.dates.length > 0
+          ? virgenData.dates
+          : lampanteData.dates;
 
   const data = {
     labels: dates,

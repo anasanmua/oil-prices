@@ -1,5 +1,6 @@
 import { runInfaolivaScraper } from "@/scrapers/infaoliva"
 import { insertCronLog } from "@/lib/repositories/cronLogsRepo"
+import { revalidatePath } from "next/cache"
 
 export async function GET() {
   try {
@@ -9,6 +10,10 @@ export async function GET() {
     const message = count > 0
       ? `Inserted ${count} new prices`
       : "No new prices to insert"
+
+    if (count > 0) {
+      revalidatePath("/prices")
+    }
 
     await insertCronLog({
       executedAt: new Date(),
